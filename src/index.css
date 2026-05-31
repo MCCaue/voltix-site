@@ -168,6 +168,27 @@ html.lenis body {
   -webkit-backdrop-filter: blur(14px);
 }
 
+/*
+ * Dispositivos touch (iPhone/iPad/Android): desliga backdrop-filter.
+ * O Safari iOS recompoe TODO o backdrop atras de cada camada com backdrop-filter a cada
+ * frame; numa tela 120Hz/3x-DPI, com varios cards (e um pinado no Comparativo rolando por
+ * tras), isso estoura o processo de GPU do WebKit e a aba e recarregada sozinha. Sobre o
+ * fundo escuro o blur e imperceptivel (efeito vidro vem do overlay + borda), entao remove-lo
+ * mantem o visual identico e elimina a causa. Desktop (pointer fino) preserva o blur.
+ */
+@media (pointer: coarse) {
+  .volt-glass,
+  [class*='backdrop-blur'] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  /* Camada de fundo fixa: o blur de 8px num layer full-screen fixo e caro no mobile e
+     invisivel sobre os gradientes suaves; mantem-se o gradiente animado, sem o blur. */
+  .volt-mesh {
+    filter: none;
+  }
+}
+
 /* Borda com glow gradiente (hover) */
 .volt-card-glow {
   position: relative;
