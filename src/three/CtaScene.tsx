@@ -5,6 +5,7 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import { VoltixX } from './VoltixX'
 import { VoltixEnvironment } from './VoltixEnvironment'
+import { useVisibleFrameloop } from './useVisibleFrameloop'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { detectTier } from '../lib/perf'
 
@@ -20,6 +21,7 @@ function Spin({ children, enabled }: { children: React.ReactNode; enabled: boole
 export function CtaScene() {
   const reduced = useReducedMotion()
   const tier = detectTier()
+  const { frameloop, onCreated } = useVisibleFrameloop()
   if (tier === 'low') {
     return (
       <div className="flex h-full items-center justify-center">
@@ -30,9 +32,11 @@ export function CtaScene() {
   return (
     <Canvas
       className="!absolute inset-0"
+      frameloop={frameloop}
       dpr={tier === 'mid' ? [1, 1.5] : [1, 2]}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       camera={{ position: [0, 0, 9], fov: 40 }}
+      onCreated={onCreated}
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.6} />

@@ -5,6 +5,7 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import { VoltixX } from './VoltixX'
 import { VoltixEnvironment } from './VoltixEnvironment'
+import { useVisibleFrameloop } from './useVisibleFrameloop'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { detectTier } from '../lib/perf'
 
@@ -47,14 +48,16 @@ export function HeroScene({ onReady }: { onReady?: () => void }) {
   const dpr: [number, number] = tier === 'low' ? [1, 1.2] : tier === 'mid' ? [1, 1.6] : [1, 2]
   const bloomEnabled = tier !== 'low'
   const sparkleCount = tier === 'low' ? 0 : tier === 'mid' ? 34 : 70
+  const { frameloop, onCreated } = useVisibleFrameloop(onReady)
 
   return (
     <Canvas
       className="!absolute inset-0"
+      frameloop={frameloop}
       dpr={dpr}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       camera={{ position: [0, 0, 9], fov: 38 }}
-      onCreated={() => onReady?.()}
+      onCreated={onCreated}
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.55} />

@@ -217,11 +217,19 @@ export function LightningCanvas({ className = '' }: { className?: string }) {
       drawBolt(flick)
       raf = requestAnimationFrame(loop)
     }
+
+    // Pausa o loop quando a aba fica em segundo plano (economiza CPU/bateria).
+    const onVis = () => {
+      cancelAnimationFrame(raf)
+      if (!document.hidden) raf = requestAnimationFrame(loop)
+    }
+    document.addEventListener('visibilitychange', onVis)
     raf = requestAnimationFrame(loop)
 
     return () => {
       cancelAnimationFrame(raf)
       ro.disconnect()
+      document.removeEventListener('visibilitychange', onVis)
     }
   }, [reduced])
 
