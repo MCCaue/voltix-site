@@ -1,0 +1,291 @@
+@import 'tailwindcss';
+
+/* ============ Fonte Arlon ============ */
+@font-face {
+  font-family: 'Arlon';
+  src: url('/fonts/arlon-light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Arlon';
+  src: url('/fonts/arlon-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Arlon';
+  src: url('/fonts/arlon-medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Arlon';
+  src: url('/fonts/arlon-semi-bold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Arlon';
+  src: url('/fonts/arlon-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Arlon';
+  src: url('/fonts/arlon-ultrabold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Arlon';
+  src: url('/fonts/arlon-black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============ Tokens da marca Voltix ============ */
+@theme {
+  /* Roxos (elétrico) */
+  --color-volt-purple: #7a14d5;
+  --color-volt-purple-bright: #b022dd;
+  --color-volt-purple-deep: #4a0b85;
+
+  /* Laranjas (combustível) */
+  --color-volt-orange: #ea400f;
+  --color-volt-orange-bright: #fb6803;
+  --color-volt-orange-deep: #a82b08;
+
+  /* Base escura */
+  --color-volt-ink: #08040f;
+  --color-volt-ink-2: #0f0820;
+  --color-volt-ink-3: #160d2e;
+  --color-volt-fog: #b9a9d6;
+
+  --font-display: 'Arlon', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Arlon', ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-glow-orange: 0 0 60px -10px rgba(251, 104, 3, 0.55);
+  --shadow-glow-purple: 0 0 60px -10px rgba(176, 34, 221, 0.55);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============ Base ============ */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-volt-ink);
+  color: #f6f2ff;
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--color-volt-purple-bright);
+  color: #fff;
+}
+
+/* Acessibilidade: foco visível */
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-volt-orange-bright);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============ Utilitários de marca ============ */
+
+/* Mesh gradient vivo de fundo */
+.volt-mesh {
+  background:
+    radial-gradient(38% 32% at 20% 25%, rgba(176, 34, 221, 0.16), transparent 70%),
+    radial-gradient(34% 30% at 82% 30%, rgba(251, 104, 3, 0.13), transparent 70%),
+    radial-gradient(40% 36% at 65% 80%, rgba(122, 20, 213, 0.15), transparent 72%);
+  filter: blur(8px);
+  animation: voltMesh 22s ease-in-out infinite alternate;
+}
+@keyframes voltMesh {
+  0% {
+    transform: translate3d(-2%, -1%, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(2%, 2%, 0) scale(1.12);
+  }
+}
+
+/* Texto com gradiente da marca */
+.volt-gradient-text {
+  background: linear-gradient(100deg, #fb6803 0%, #ea400f 38%, #b022dd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Card de vidro */
+.volt-glass {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Borda com glow gradiente (hover) */
+.volt-card-glow {
+  position: relative;
+  isolation: isolate;
+}
+.volt-card-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, rgba(251, 104, 3, 0.5), rgba(176, 34, 221, 0.5));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out-expo);
+  z-index: -1;
+}
+.volt-card-glow:hover::before {
+  opacity: 1;
+}
+
+/* Pulso de eletricidade nos traços/linhas */
+@keyframes voltDash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes voltPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.volt-spark {
+  animation: voltPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes voltBarRise {
+  from {
+    transform: scaleY(0);
+    transform-origin: bottom;
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes voltBarGrow {
+  from {
+    width: 0;
+  }
+}
+
+/* Linha de varredura "ao vivo" no gráfico do painel */
+.volt-scan {
+  background: linear-gradient(180deg, transparent, rgba(255, 220, 180, 0.55), transparent);
+  box-shadow: 0 0 12px 2px rgba(251, 104, 3, 0.35);
+  animation: voltScan 3.4s linear infinite;
+}
+@keyframes voltScan {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+@keyframes voltRing {
+  from {
+    stroke-dashoffset: var(--ring-c);
+  }
+}
+
+/* Raio elétrico: flicker do halo + redesenho do núcleo */
+@keyframes voltBoltFlicker {
+  0%, 100% { opacity: 1; }
+  8% { opacity: 0.4; }
+  16% { opacity: 0.95; }
+  24% { opacity: 0.6; }
+  60% { opacity: 1; }
+  68% { opacity: 0.5; }
+}
+.volt-bolt-flicker {
+  animation: voltBoltFlicker 2.6s steps(1, end) infinite;
+}
+@keyframes voltBoltDraw {
+  0% { stroke-dashoffset: 340; opacity: 0.2; }
+  20% { opacity: 1; }
+  70% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0.85; }
+}
+.volt-bolt-draw path {
+  stroke-dasharray: 340;
+  animation: voltBoltDraw 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .volt-bolt-flicker,
+  .volt-bolt-draw path {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+    opacity: 1 !important;
+  }
+}
