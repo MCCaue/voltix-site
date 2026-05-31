@@ -96,11 +96,12 @@ export function Carteira() {
       </Reveal>
 
       {/* stats */}
-      <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-3">
+      <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-4">
         {[
           { v: 5, suf: '%', l: 'de cashback médio por litro' },
           { v: 3, suf: 'x', l: 'mais visitas de quem usa o app' },
           { v: 100, suf: '%', l: 'do saldo livre para resgatar' },
+          { v: 24, suf: '/7', l: 'no bolso do seu cliente, sempre' },
         ].map((s, i) => (
           <Reveal key={s.l} delay={i * 0.1} className="text-center">
             <div className="font-display text-5xl font-extrabold volt-gradient-text">

@@ -1,3 +1,6 @@
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Reveal } from '../components/Reveal'
 
 const linhas = [
@@ -53,6 +56,26 @@ function Mark({ kind }: { kind: 'full' | 'partial' | 'none' }) {
 const COLS = 'grid-cols-[1.7fr_1fr_1fr_1fr_1fr]'
 
 export function Comparativo() {
+  const scrollerRef = useRef<HTMLDivElement>(null)
+
+  // Mobile: revela as colunas horizontalmente conforme a página rola (vinculado ao scroll).
+  useEffect(() => {
+    const el = scrollerRef.current
+    if (!el) return
+    if (!window.matchMedia('(max-width: 767px)').matches) return
+    gsap.registerPlugin(ScrollTrigger)
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start: 'top 82%',
+      end: 'bottom 45%',
+      onUpdate: (self) => {
+        const max = el.scrollWidth - el.clientWidth
+        if (max > 0) el.scrollLeft = self.progress * max
+      },
+    })
+    return () => st.kill()
+  }, [])
+
   return (
     <section id="comparativo" className="relative mx-auto max-w-[1180px] px-6 py-28 sm:py-36">
       <Reveal className="mx-auto max-w-2xl text-center">
@@ -67,7 +90,7 @@ export function Comparativo() {
       </Reveal>
 
       <Reveal delay={0.1} className="mt-14">
-        <div className="overflow-x-auto">
+        <div ref={scrollerRef} className="overflow-x-auto">
           <div className="volt-glass min-w-[720px] overflow-hidden rounded-3xl">
             {/* cabeçalho */}
             <div className={`grid ${COLS} items-stretch`}>
