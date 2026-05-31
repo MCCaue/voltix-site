@@ -182,10 +182,22 @@ html.lenis body {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
-  /* Camada de fundo fixa: o blur de 8px num layer full-screen fixo e caro no mobile e
-     invisivel sobre os gradientes suaves; mantem-se o gradiente animado, sem o blur. */
+  /*
+   * Camada de fundo fixa: a maior fonte de custo de GPU POR FRAME no iPhone. A 120Hz, cada
+   * camada de tela cheia do fundo fixo e recomposta 120x/s enquanto a pagina rola por tras.
+   * Medido no iPhone (Inspetor > Camadas): ~45MB em 3-4 layers de tela cheia; a 120Hz isso
+   * estoura o processo de GPU do WebKit (a 60Hz, ao gravar, sobrevive). Entao no touch:
+   *  - .volt-mesh: sem blur E sem animacao -> deixa de ser uma camada animada/composta
+   *    (era 16MB recompostos 120x/s); o drift de 22s e imperceptivel atras de tudo.
+   *  - .volt-bg-fade: sem o tween de opacidade -> a opacidade acompanha --scroll direto,
+   *    sem interpolacao continua por frame. O crossfade laranja->roxo continua identico.
+   */
   .volt-mesh {
     filter: none;
+    animation: none;
+  }
+  .volt-bg-fade {
+    transition: none !important;
   }
 }
 

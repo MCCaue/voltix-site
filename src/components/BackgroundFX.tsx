@@ -8,7 +8,7 @@ export function BackgroundFX() {
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-volt-ink">
       {/* Laranja — domina no topo */}
       <div
-        className="absolute inset-0 transition-opacity duration-300"
+        className="volt-bg-fade absolute inset-0 transition-opacity duration-300"
         style={{
           opacity: 'calc(0.9 - var(--scroll, 0) * 0.75)',
           background:
@@ -17,7 +17,7 @@ export function BackgroundFX() {
       />
       {/* Roxo — domina embaixo */}
       <div
-        className="absolute inset-0 transition-opacity duration-300"
+        className="volt-bg-fade absolute inset-0 transition-opacity duration-300"
         style={{
           opacity: 'calc(0.25 + var(--scroll, 0) * 0.85)',
           background:
