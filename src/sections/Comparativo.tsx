@@ -57,23 +57,34 @@ const COLS = 'grid-cols-[1.7fr_1fr_1fr_1fr_1fr]'
 
 export function Comparativo() {
   const scrollerRef = useRef<HTMLDivElement>(null)
+  const pinRef = useRef<HTMLDivElement>(null)
 
-  // Mobile: revela as colunas horizontalmente conforme a página rola (vinculado ao scroll).
+  // Mobile: pina a tabela e percorre as colunas na horizontal conforme o scroll
+  // vertical; libera a rolagem só ao chegar no fim. Desktop não tem overflow → intacto.
   useEffect(() => {
-    const el = scrollerRef.current
-    if (!el) return
+    const sc = scrollerRef.current
+    const pin = pinRef.current
+    if (!sc || !pin) return
     if (!window.matchMedia('(max-width: 767px)').matches) return
     gsap.registerPlugin(ScrollTrigger)
+    const getMax = () => sc.scrollWidth - sc.clientWidth
     const st = ScrollTrigger.create({
-      trigger: el,
-      start: 'top 82%',
-      end: 'bottom 45%',
+      trigger: pin,
+      start: 'center center',
+      end: () => `+=${Math.max(420, getMax() * 1.7)}`,
+      pin: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
       onUpdate: (self) => {
-        const max = el.scrollWidth - el.clientWidth
-        if (max > 0) el.scrollLeft = self.progress * max
+        const max = getMax()
+        if (max > 0) sc.scrollLeft = self.progress * max
       },
     })
-    return () => st.kill()
+    const id = window.setTimeout(() => ScrollTrigger.refresh(), 300)
+    return () => {
+      window.clearTimeout(id)
+      st.kill()
+    }
   }, [])
 
   return (
@@ -89,8 +100,8 @@ export function Comparativo() {
         </h2>
       </Reveal>
 
-      <Reveal delay={0.1} className="mt-14">
-        <div ref={scrollerRef} className="overflow-x-auto">
+      <div ref={pinRef} className="mt-14">
+        <div ref={scrollerRef} className="overflow-x-auto no-scrollbar">
           <div className="volt-glass min-w-[720px] overflow-hidden rounded-3xl">
             {/* cabeçalho */}
             <div className={`grid ${COLS} items-stretch`}>
@@ -137,7 +148,7 @@ export function Comparativo() {
             ))}
           </div>
         </div>
-      </Reveal>
+      </div>
     </section>
   )
 }

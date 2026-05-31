@@ -96,7 +96,7 @@ export function Nav({ revealed = true }: { revealed?: boolean }) {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="overflow-hidden md:hidden"
+            className="relative z-10 overflow-hidden md:hidden"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

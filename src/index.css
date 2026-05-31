@@ -230,6 +230,15 @@ html.lenis body {
   }
 }
 
+/* Esconde a barra de rolagem mantendo o scroll funcional */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Linha de varredura "ao vivo" no gráfico do painel */
 .volt-scan {
   background: linear-gradient(180deg, transparent, rgba(255, 220, 180, 0.55), transparent);
