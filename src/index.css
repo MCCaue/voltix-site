@@ -121,16 +121,11 @@ html.lenis body {
   border-radius: 4px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/*
+ * Nota: a Voltix NÃO honra `prefers-reduced-motion` (decisão de produto — ver
+ * src/lib/useReducedMotion.ts). Economia de bateria/energia ativava essa flag e
+ * congelava todo o site no Android/Windows. Por isso não há bloco de supressão aqui.
+ */
 
 /* ============ Utilitários de marca ============ */
 
@@ -321,13 +316,4 @@ html.lenis body {
 .volt-bolt-draw path {
   stroke-dasharray: 340;
   animation: voltBoltDraw 2.6s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .volt-bolt-flicker,
-  .volt-bolt-draw path {
-    animation: none !important;
-    stroke-dashoffset: 0 !important;
-    opacity: 1 !important;
-  }
 }

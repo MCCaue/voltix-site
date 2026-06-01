@@ -82,16 +82,6 @@ export default function App() {
               <MagneticButton href="#parceiro">Seja um parceiro</MagneticButton>
             </div>
           </div>
-
-          {/* indicador de scroll */}
-          <div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
-            style={{ opacity: revealed ? 1 : 0, transition: 'opacity 0.6s 0.5s ease' }}
-          >
-            <div className="flex h-9 w-5 items-start justify-center rounded-full border border-white/20 p-1">
-              <span className="h-2 w-1 animate-bounce rounded-full bg-white/60" />
-            </div>
-          </div>
         </section>
 
         <AuthorityStrip />

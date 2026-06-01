@@ -4,9 +4,8 @@ export function Footer() {
       <div className="mx-auto max-w-[1180px] px-6 py-14">
         <div className="flex flex-col justify-between gap-10 md:flex-row">
           <div className="max-w-xs">
-            <a href="#top" className="flex items-center gap-2.5" aria-label="Voltix — início">
-              <img src="/brand/symbol.svg" alt="" className="h-8 w-8" />
-              <span className="font-display text-xl font-extrabold tracking-tight text-white">voltix</span>
+            <a href="#top" className="inline-flex items-center" aria-label="Voltix — início">
+              <img src="/brand/logo.png" alt="" className="h-10 w-auto" />
             </a>
             <p className="mt-4 text-sm text-volt-fog">
               O seu app de vantagens. Cashback e recompensas em cada parada, do combustível à recarga

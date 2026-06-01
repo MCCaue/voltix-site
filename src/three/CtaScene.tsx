@@ -22,18 +22,16 @@ export function CtaScene() {
   const reduced = useReducedMotion()
   const tier = detectTier()
   const { frameloop, onCreated } = useVisibleFrameloop()
-  if (tier === 'low') {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <img src="/brand/x-3d.png" alt="" className="h-56 w-56 object-contain opacity-80" />
-      </div>
-    )
-  }
+  // O X 3D anima em todos os dispositivos. O tier só degrada o custo (dpr + bloom),
+  // nunca troca por imagem estática — o useVisibleFrameloop garante que só um X
+  // (hero OU fechamento) renderiza por vez, então o custo de GPU não dobra.
+  const dpr: [number, number] = tier === 'low' ? [1, 1.2] : tier === 'mid' ? [1, 1.5] : [1, 2]
+  const bloomEnabled = tier !== 'low'
   return (
     <Canvas
       className="!absolute inset-0"
       frameloop={frameloop}
-      dpr={tier === 'mid' ? [1, 1.5] : [1, 2]}
+      dpr={dpr}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       camera={{ position: [0, 0, 9], fov: 40 }}
       onCreated={onCreated}
@@ -48,9 +46,11 @@ export function CtaScene() {
           </Float>
         </Spin>
         <VoltixEnvironment />
-        <EffectComposer enableNormalPass={false}>
-          <Bloom intensity={0.7} luminanceThreshold={0.65} luminanceSmoothing={0.25} mipmapBlur radius={0.65} />
-        </EffectComposer>
+        {bloomEnabled && (
+          <EffectComposer enableNormalPass={false}>
+            <Bloom intensity={0.7} luminanceThreshold={0.65} luminanceSmoothing={0.25} mipmapBlur radius={0.65} />
+          </EffectComposer>
+        )}
       </Suspense>
     </Canvas>
   )

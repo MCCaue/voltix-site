@@ -23,13 +23,13 @@ export function Fechamento() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(60% 55% at 50% 45%, rgba(176,34,221,0.22), transparent 70%), radial-gradient(45% 40% at 50% 50%, rgba(251,104,3,0.16), transparent 70%), radial-gradient(80% 80% at 50% 50%, transparent 40%, rgba(4,2,8,0.65) 100%)',
+            'radial-gradient(58% 52% at 50% 42%, rgba(176,34,221,0.32), transparent 68%), radial-gradient(50% 46% at 50% 60%, rgba(251,104,3,0.24), transparent 70%), radial-gradient(92% 88% at 50% 50%, transparent 44%, rgba(4,2,8,0.74) 100%)',
         }}
       />
 
       <div className="relative z-10 text-center">
         <Reveal y={20}>
-          <p className="font-display text-sm font-semibold uppercase tracking-[0.3em] text-volt-orange-bright [text-shadow:0_2px_16px_rgba(8,4,15,0.8)]">
+          <p className="mx-auto max-w-4xl text-left font-display text-sm font-semibold uppercase tracking-[0.3em] text-volt-orange-bright [text-shadow:0_2px_16px_rgba(8,4,15,0.8)]">
             Chegou a Voltix
           </p>
         </Reveal>
@@ -37,7 +37,7 @@ export function Fechamento() {
           <h2 className="mx-auto mt-6 max-w-4xl font-display text-5xl font-black leading-[0.98] tracking-tight [text-shadow:0_4px_30px_rgba(8,4,15,0.7)] sm:text-7xl">
             Transforme cada parada
             <br />
-            <span className="volt-gradient-text">em fidelidade</span>
+            <span className="text-white">em fidelidade</span>
           </h2>
         </Reveal>
         <Reveal delay={0.2} y={20}>

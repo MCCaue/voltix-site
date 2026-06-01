@@ -43,9 +43,8 @@ export function Nav({ revealed = true }: { revealed?: boolean }) {
         }}
       />
       <nav className="relative mx-auto flex max-w-[1180px] items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-2.5" aria-label="Voltix — início">
-          <img src="/brand/symbol.svg" alt="" className="h-7 w-7" />
-          <span className="font-display text-xl font-extrabold tracking-tight text-white">voltix</span>
+        <a href="#top" className="flex items-center" aria-label="Voltix — início">
+          <img src="/brand/logo.png" alt="" className="h-8 w-auto" />
         </a>
 
         <div className="hidden items-center gap-8 md:flex">
